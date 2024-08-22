@@ -1,0 +1,5 @@
+{
+  "dbUrl": "jdbc:h2:./database",
+  "dbUser": "admin",
+  "dbPass": "secret"
+}
