@@ -1,7 +1,10 @@
 package corp.client;
 
+import corp.ticket.Ticket;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Table(name = "client")
 @Entity
@@ -13,4 +16,12 @@ public class Client {
 
     @Column(name = "name", nullable = false, length = 500)
     private String name;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Ticket> tickets;
+
+    @Override
+    public String toString() {
+        return "Client{id=" + id + ", name='" + name + "'}";
+    }
 }

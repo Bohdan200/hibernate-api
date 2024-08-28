@@ -2,8 +2,10 @@ package corp.ticket;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.sql.Timestamp;
+
+import corp.client.Client;
+import corp.planet.Planet;
 
 @Table(name = "ticket")
 @Entity
@@ -16,13 +18,24 @@ public class Ticket {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-    @Column
-    private long client_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", referencedColumnName = "id", nullable = false)
+    private Client client;
 
-    @Column
-    private String from_planet_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "from_planet_id", referencedColumnName = "id", nullable = false)
+    private Planet fromPlanet;
 
-    @Column
-    private String to_planet_id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "to_planet_id", referencedColumnName = "id", nullable = false)
+    private Planet toPlanet;
+
+    @Override
+    public String toString() {
+        return "Ticket{id=" + id + ", createdAt=" + createdAt +
+                ", fromPlanet=" + (fromPlanet != null ? fromPlanet.getName() : null) +
+                ", toPlanet=" + (toPlanet != null ? toPlanet.getName() : null) +
+                ", client=" + (client != null ? client.getName() : null) + "}";
+    }
 }
 

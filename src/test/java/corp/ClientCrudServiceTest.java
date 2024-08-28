@@ -1,35 +1,31 @@
 package corp;
 
-import corp.storage.Storage;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 
 import corp.storage.HibernateUtil;
+import corp.storage.Storage;
+import corp.client.IClientCrudService;
 import corp.client.ClientCrudService;
 import corp.client.Client;
+
+import java.sql.SQLException;
 import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ClientCrudServiceTest {
-    private ClientCrudService clientCrudService;
+    private final IClientCrudService clientCrudService = new ClientCrudService();
 
     @BeforeAll
     void setup() {
         Storage.getInstance().getConnection();
         HibernateUtil.getInstance().getSessionFactory();
-        clientCrudService = new ClientCrudService();
-    }
-
-    @AfterAll
-    void close() {
-        HibernateUtil.getInstance().close();
     }
 
     @Test
-    void testSaveAndGetById() {
+    void testSaveAndGetById() throws SQLException {
         Client client = new Client();
         client.setName("Test Client");
 
@@ -44,7 +40,7 @@ class ClientCrudServiceTest {
     }
 
     @Test
-    void testGetAll() {
+    void testGetAll() throws SQLException {
         Client client1 = new Client();
         client1.setName("Client 1");
 
@@ -64,7 +60,7 @@ class ClientCrudServiceTest {
     }
 
     @Test
-    void testUpdate() {
+    void testUpdate() throws SQLException {
         Client client = new Client();
         client.setName("Original Name");
 
@@ -82,7 +78,7 @@ class ClientCrudServiceTest {
     }
 
     @Test
-    void testDelete() {
+    void testDelete() throws SQLException {
         Client client = new Client();
         client.setName("To Be Deleted");
 
@@ -96,3 +92,4 @@ class ClientCrudServiceTest {
         Assertions.assertNull(deletedClient);
     }
 }
+

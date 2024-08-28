@@ -1,6 +1,7 @@
 package corp.planet;
 
 import corp.storage.HibernateUtil;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -28,7 +29,12 @@ public class PlanetCrudService implements IPlanetCrudService {
     @Override
     public List<Planet> getAll() {
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("from Planet", Planet.class).list();
+            List<Planet> planets = session.createQuery("from Planet", Planet.class).list();
+            for (Planet planet : planets) {
+                Hibernate.initialize(planet.getTicketsFrom());
+                Hibernate.initialize(planet.getTicketsTo());
+            }
+            return planets;
         }
     }
 

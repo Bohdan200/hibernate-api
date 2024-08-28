@@ -6,12 +6,13 @@ import lombok.Getter;
 
 import corp.client.Client;
 import corp.planet.Planet;
+import corp.ticket.Ticket;
 
+@Getter
 public class HibernateUtil {
     private static final HibernateUtil INSTANCE;
 
-    @Getter
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     static {
         INSTANCE = new HibernateUtil();
@@ -21,6 +22,7 @@ public class HibernateUtil {
         sessionFactory = new Configuration()
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(Planet.class)
+                .addAnnotatedClass(Ticket.class)
                 .buildSessionFactory();
     }
 
