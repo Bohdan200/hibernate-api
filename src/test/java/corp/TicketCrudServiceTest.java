@@ -25,11 +25,9 @@ import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class TicketCrudServiceTest {
-
     private final ITicketCrudService ticketCrudService = new TicketCrudService();
     private final IClientCrudService clientCrudService = new ClientCrudService();
     private final IPlanetCrudService planetCrudService = new PlanetCrudService();
-    ;
     private Client client;
     private Planet fromPlanet;
     private Planet toPlanet;

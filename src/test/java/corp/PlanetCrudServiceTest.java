@@ -18,7 +18,6 @@ import java.util.List;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PlanetCrudServiceTest {
     private final IPlanetCrudService planetCrudService = new PlanetCrudService();
-    ;
 
     @BeforeAll
     void setup() {
