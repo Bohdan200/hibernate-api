@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import corp.storage.HibernateUtil;
+import java.io.PrintWriter;
 
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.core.LauncherFactory;
@@ -41,7 +42,7 @@ public class App {
         launcher.execute(request);
 
         TestExecutionSummary summary = listener.getSummary();
-        summary.printTo(new java.io.PrintWriter(System.out));
+        summary.printTo(new PrintWriter(System.out));
 
         System.out.println("Successfully completed tests in quantity = " + summary.getTestsSucceededCount());
 
